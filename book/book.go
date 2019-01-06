@@ -11,3 +11,4 @@ func Generate(wr io.Writer, word *entity.Word) {
 		logrus.Error(err)
 	}
 }
+

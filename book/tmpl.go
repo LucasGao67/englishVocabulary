@@ -3,8 +3,7 @@ package book
 import "text/template"
 
 
-const section = `
-\section*{ {{- .Name -}} }
+const section = `\section*{ {{- .Name -}} }
 {\large \color{blue} {{range .Forms }} {{.}} {{end}} }
 \subsection*{Explain}
 \begin{enumerate}
@@ -12,14 +11,14 @@ const section = `
 \item {{.Type}} \\
 {{ range .Explain -}}
 {{if .Imported}}\textbf{ {{- .Content -}} } {{else}}{{.Content}} {{end}}
-{{- end}}
+{{- end -}}
 \textit{
 	\begin{itemize}
 	{{ range .ExampleSentences}}\item {{.}}
 	{{end -}}
 	\end{itemize}
 }
-{{end}}
+{{end -}}
 \end{enumerate}
 {{ if .ShowExample }}
 \subsection*{Example}
