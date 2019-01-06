@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package entity;
+
+message Word {
+    string name = 1;
+    repeated string forms = 2; // 单词形式
+    repeated Content contents = 3;
+    bool showExample = 4;
+    repeated string exampleSentences = 5;
+}
+
+
+message slice {
+    string content = 1;
+    bool imported = 2;
+}
+
+
+message Content {
+    string type = 1;
+    repeated slice explain = 2;
+    repeated string exampleSentences = 3;
+}
