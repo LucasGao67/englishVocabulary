@@ -1,12 +1,15 @@
 package capture
 
 import (
+	"fmt"
 	"github.com/LucasGao67/englishVocabulary/book"
 	"github.com/LucasGao67/englishVocabulary/book/entity"
 	"github.com/antchfx/htmlquery"
+	"github.com/gocolly/colly"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 )
 
 var baseUrl = "https://www.collinsdictionary.com/dictionary/english/"
@@ -26,12 +29,30 @@ func captureUrl(word string) string {
 	return string(data)
 }
 
+func CaptureUrl2Html(word string) string {
+	c := colly.NewCollector()
+	c.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting", r.URL)
+	})
+	c.OnResponse(func(response *colly.Response) {
+
+	})
+	return ""
+}
+
 func Convert(word string) {
-	//parse1(word)
-	doc, _ := htmlquery.LoadURL(baseUrl + word)
-	//doc, _ := htmlquery.Parse(strings.NewReader(file))
+	word = strings.Split(word, ".")[0]
+	//doc, _ := htmlquery.LoadURL(baseUrl + word)
+	str, err := ioutil.ReadFile("doc/html/" + word + ".html")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(word)
+	doc, _ := htmlquery.Parse(strings.NewReader(string(str)))
 	w := &entity.Word{}
 	w.Name = word
+
 	w.SetExample(doc).SetForms(doc).SetContent(doc)
 
 	w.ShowExample = true
